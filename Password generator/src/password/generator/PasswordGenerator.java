@@ -37,15 +37,34 @@ public class PasswordGenerator {
 
     public String createPassword(){
         String pass="";
-        for (int i=0; i<numChar; i++){
-            String[] elements = new String[10];
-            for (int j=0; j<elements.length; j++){
+        String[] elements;
+        for (int i=0; i<numChar; i++){ 
+            elements = new String[10];
+            if (numbers && specialChar)
+                for (int j=0; j<elements.length; j++){
+                    if (j>=0 && j<3){
+                        elements[j] = Integer.toString((int) (Math.random()*9));
+                    }
+                    else if (j>=3 && j<6){
+                        char[] valuesAvaible = {'!', '"', '#', '$', '%', '&', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', ']', '^', '{', '}', '~'};
+                        elements[j] = ""+valuesAvaible[(int) (Math.random() * 27)]+"";
+                    }
+                    else if (j>=6){
+                        int rnd = (int) (Math.random() * 52);
+                        char base = (rnd < 26) ? 'A' : 'a';
+                        elements[j] = ""+(char) (base + rnd % 26)+"";
+                    }
+                }
+            else if (numbers || specialChar){
                 
             }
-            // Genera random A-Z, a-z
-            int rnd = (int) (Math.random() * 52);
-            char base = (rnd < 26) ? 'A' : 'a';
-            pass+=(char) (base + rnd % 26);
+            else 
+                for (int j=0; j<elements.length; j++){
+                    int rnd = (int) (Math.random() * 52);
+                    char base = (rnd < 26) ? 'A' : 'a';
+                    elements[j] = String.valueOf((char) (base + rnd % 26));
+                }
+            pass+=elements[(int) (Math.random()*9)];
         }
         return pass;
     }
