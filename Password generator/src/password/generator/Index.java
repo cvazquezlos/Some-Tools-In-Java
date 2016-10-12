@@ -24,12 +24,12 @@ public class Index extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         numberChar = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        secLevel = new javax.swing.JComboBox<>();
+        numbers = new javax.swing.JCheckBox();
+        specialChars = new javax.swing.JCheckBox();
+        repeated = new javax.swing.JCheckBox();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        regionChars = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -38,7 +38,6 @@ public class Index extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 204, 0));
-        setPreferredSize(new java.awt.Dimension(920, 400));
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
@@ -69,19 +68,19 @@ public class Index extends javax.swing.JFrame {
 
         jLabel5.setText("Level of security");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Low", "Medium", "Advanced", "Super" }));
+        secLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Low", "Medium", "Advanced", "Super" }));
+        secLevel.setSelectedIndex(1);
 
-        jCheckBox2.setText("Numbers ?");
+        numbers.setText("Numbers ?");
 
-        jCheckBox3.setText("Special characters ( !\"#$%&()*+,-./:;<=>?@[]^_{}~) ?");
-        jCheckBox3.setActionCommand("Special characters ( !\"#$%&()*+,-./:;<=>?@[]^_{}~) ?");
+        specialChars.setText("Special characters ( !\"#$%&()*+,-./:;<=>?@[]^_{}~) ?");
 
-        jCheckBox1.setSelected(true);
-        jCheckBox1.setText("Repeated characters ?");
+        repeated.setSelected(true);
+        repeated.setText("Repeated characters ?");
 
         jLabel4.setText("Region special characters");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "US / UK", "SP", "FR" }));
+        regionChars.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "US / UK", "SP", "FR" }));
 
         jButton1.setBackground(new java.awt.Color(0, 204, 102));
         jButton1.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
@@ -108,21 +107,21 @@ public class Index extends javax.swing.JFrame {
                                 .addComponent(jLabel5)
                                 .addGap(29, 29, 29)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(secLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(numberChar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(28, 28, 28)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jCheckBox2)
+                                .addComponent(numbers)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jCheckBox1))
-                            .addComponent(jCheckBox3))
+                                .addComponent(repeated))
+                            .addComponent(specialChars))
                         .addGap(37, 37, 37)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(regionChars, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jButton1)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
@@ -138,14 +137,14 @@ public class Index extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(numberChar)
-                    .addComponent(jCheckBox3)
+                    .addComponent(specialChars)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(regionChars, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox1)
+                    .addComponent(secLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(numbers)
+                    .addComponent(repeated)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1))
                 .addContainerGap())
@@ -217,11 +216,11 @@ public class Index extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String[] result = new String[6];
         result[0] = (String) numberChar.getSelectedItem();
-        result[1] = (String) jComboBox2.getSelectedItem();
-        result[2] = isSelected(jCheckBox3);
-        result[3] = isSelected(jCheckBox2);
-        result[4] = isSelected(jCheckBox1);
-        result[5] = (String) jComboBox3.getSelectedItem();
+        result[1] = (String) secLevel.getSelectedItem();
+        result[2] = isSelected(specialChars);
+        result[3] = isSelected(numbers);
+        result[4] = isSelected(repeated);
+        result[5] = (String) regionChars.getSelectedItem();
         PasswordGenerator pg = new PasswordGenerator(this, result);
         password.removeAll();
         password.setText(pg.createPassword());
@@ -242,17 +241,13 @@ public class Index extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Index().setVisible(true);
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -264,6 +259,11 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JComboBox<String> numberChar;
+    private javax.swing.JCheckBox numbers;
     private javax.swing.JTextField password;
+    private javax.swing.JComboBox<String> regionChars;
+    private javax.swing.JCheckBox repeated;
+    private javax.swing.JComboBox<String> secLevel;
+    private javax.swing.JCheckBox specialChars;
     // End of variables declaration//GEN-END:variables
 }

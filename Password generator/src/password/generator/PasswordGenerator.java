@@ -9,6 +9,7 @@ public class PasswordGenerator {
     Index index;
     int numChar;
     String secLevel;
+    int gradeLevel;
     boolean specialChar;
     boolean numbers;
     boolean wantRepeated;
@@ -17,6 +18,8 @@ public class PasswordGenerator {
     public PasswordGenerator(Index index, String[] result) {
         this.index = index;
         updateValues(result);
+        setSecLevelsInt(secLevel);
+        
     }
 
     private void updateValues(String[] result) {
@@ -26,6 +29,19 @@ public class PasswordGenerator {
         numbers = uploadBooleanValue(result[3]);
         wantRepeated = uploadBooleanValue(result[4]);
         regionChar = result[5];
+    }
+    
+    private void setSecLevelsInt(String secLevel){
+        switch (secLevel){
+            case "Low":
+                gradeLevel = 1;
+            case "Medium":
+                gradeLevel = 2;
+            case "Advanced":
+                gradeLevel = 3;
+            case "Super":
+                gradeLevel = 4;
+        }
     }
 
     private Boolean uploadBooleanValue(String result) {
