@@ -1,5 +1,8 @@
 package password.generator;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  *
  * @author c.vazquezlos
@@ -15,14 +18,29 @@ public class PasswordGenerator {
     boolean wantRepeated;
     String regionChar;
     double index1, index2, index3;
+    ArrayList<Character> regionChars;
 
     public PasswordGenerator(Index index, String[] result) {
         this.index = index;
         updateValues(result);
-        setSecLevelsInt(secLevel);
-        
+        setSecLevelsInt();
+        setRegionalChars();
     }
 
+    private void setRegionalChars(){
+        regionChars = new ArrayList<Character>();
+        switch (this.regionChar){
+            case "US / UK":
+                break;
+            case "SP":
+                regionChars.add('ñ');
+                regionChars.add('ç');
+                break;
+            case "FR":
+                break;
+        }
+    }
+    
     private void updateValues(String[] result) {
         numChar = Integer.valueOf(result[0]);
         secLevel = result[1];
@@ -32,8 +50,8 @@ public class PasswordGenerator {
         regionChar = result[5];
     }
     
-    private void setSecLevelsInt(String secLevel){
-        switch (secLevel){
+    private void setSecLevelsInt(){
+        switch (this.secLevel){
             case "Low":
                 gradeLevel = 1;
                 break;
@@ -60,7 +78,9 @@ public class PasswordGenerator {
     public String createPassword() {
         String password = "";
         String[] elements;
-        char[] valuesAvaible = {'!', '"', '#', '$', '%', '&', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', ']', '^', '{', '}', '~'};
+        ArrayList<Character> values = new ArrayList<Character>(Arrays.asList('!', '"', '#', '$', '%', '&', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', ']', '^', '{', '}', '~'));
+        for (int i=0; i<regionChars.size(); i++)
+            values.add(regionChars.get(i));
         for (int i = 0; i < numChar; i++) {
             elements = new String[10];
             if (numbers && specialChar) {
@@ -72,7 +92,7 @@ public class PasswordGenerator {
                     } else if (j >= ((int) (index1*elements.length)) && j < (((int) (index1*elements.length))+((int) (index2*elements.length)))){
                         elements[j] = String.valueOf(generateRandomLetter());
                     } else if (j >= (((int) (index1*elements.length))+((int) (index2*elements.length)))){
-                        elements[j] = "" + generateRandomChar(valuesAvaible) + "";
+                        elements[j] = "" + generateRandomChar(values) + "";
                     }
                 }
             } else if (numbers || specialChar) {
@@ -89,7 +109,7 @@ public class PasswordGenerator {
                     setAllIndex(3);
                     for (int j = 0; j < elements.length; j++) {
                         if (j >= 0 && j < ((int) (index2*elements.length))) {
-                            elements[j] = "" + generateRandomChar(valuesAvaible) + "";
+                            elements[j] = "" + generateRandomChar(values) + "";
                         } else if (j >= ((int) (index2*elements.length))) {
                             elements[j] = String.valueOf(generateRandomLetter());
                         }
@@ -179,8 +199,8 @@ public class PasswordGenerator {
         return (char) (base + rnd % 26);
     }
 
-    private char generateRandomChar(char[] valuesAvaible) {
-        return valuesAvaible[generateRandomInt(0, 26)];
+    private char generateRandomChar(ArrayList<Character> valuesAvaible) {
+        return valuesAvaible.get(generateRandomInt(0, 26));
     }
 
     private int generateRandomInt(int min, int max) {
@@ -190,5 +210,5 @@ public class PasswordGenerator {
     private boolean isRepeated(String password, String element) {
         return password.contains(element);
     }
-
+    
 }
