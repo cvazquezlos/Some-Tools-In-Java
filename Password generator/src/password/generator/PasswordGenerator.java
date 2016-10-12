@@ -14,7 +14,7 @@ public class PasswordGenerator {
     boolean numbers;
     boolean wantRepeated;
     String regionChar;
-    int index1, index2, index3;
+    double index1, index2, index3;
 
     public PasswordGenerator(Index index, String[] result) {
         this.index = index;
@@ -60,18 +60,19 @@ public class PasswordGenerator {
         for (int i = 0; i < numChar; i++) {
             elements = new String[10];
             if (numbers && specialChar) {
-                setAllIndex();
+                setAllIndex(1);
                 for (int j = 0; j < elements.length; j++) {
-                    if (j >= 0 && j < 4) {
+                    if (j >= 0 && j < ((int) (index1*elements.length))) {
                         elements[j] = Integer.toString(generateRandomInt(0, 9));
-                    } else if (j >= 4 && j < 6) {
-                        elements[j] = "" + generateRandomChar(valuesAvaible) + "";
-                    } else if (j >= 6) {
+                    } else if (j >= ((int) (index1*elements.length)) && j < ((int) (index2*elements.length))) {
                         elements[j] = String.valueOf(generateRandomLetter());
+                    } else if (j >= ((int) (index2*elements.length))) {
+                        elements[j] = "" + generateRandomChar(valuesAvaible) + "";
                     }
                 }
             } else if (numbers || specialChar) {
                 if (numbers) {
+                    setAllIndex(2);
                     for (int j = 0; j < elements.length; j++) {
                         if (j >= 0 && j < 5) {
                             elements[j] = Integer.toString(generateRandomInt(0, 9));
@@ -80,6 +81,7 @@ public class PasswordGenerator {
                         }
                     }
                 } else if (specialChar) {
+                    setAllIndex(3);
                     for (int j = 0; j < elements.length; j++) {
                         if (j >= 0 && j < 4) {
                             elements[j] = "" + generateRandomChar(valuesAvaible) + "";
@@ -110,15 +112,31 @@ public class PasswordGenerator {
         return password;
     }
 
-    private void setAllIndex(){
-        switch(gradeLevel){
+    private void setAllIndex(int grade){
+        switch(grade){
             case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
+                switch(gradeLevel){
+                    case 1:
+                        index1 = 0.2;
+                        index2 = 0.6;
+                        index3 = 0.2;
+                        break;
+                    case 2:
+                        index1 = 0.3;
+                        index2 = 0.4;
+                        index3 = 0.3;
+                        break;
+                    case 3:
+                        index1 = 0.4;
+                        index2 = 0.2;
+                        index3 = 0.4;
+                        break;
+                    case 4:
+                        index1 = 0.45;
+                        index2 = 0.10;
+                        index3 = 0.45;
+                        break;
+                }
                 break;
         }
     }
