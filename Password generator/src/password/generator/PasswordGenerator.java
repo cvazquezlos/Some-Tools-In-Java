@@ -14,6 +14,7 @@ public class PasswordGenerator {
     boolean numbers;
     boolean wantRepeated;
     String regionChar;
+    int index1, index2, index3;
 
     public PasswordGenerator(Index index, String[] result) {
         this.index = index;
@@ -59,6 +60,7 @@ public class PasswordGenerator {
         for (int i = 0; i < numChar; i++) {
             elements = new String[10];
             if (numbers && specialChar) {
+                setAllIndex();
                 for (int j = 0; j < elements.length; j++) {
                     if (j >= 0 && j < 4) {
                         elements[j] = Integer.toString(generateRandomInt(0, 9));
@@ -108,6 +110,19 @@ public class PasswordGenerator {
         return password;
     }
 
+    private void setAllIndex(){
+        switch(gradeLevel){
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+        }
+    }
+    
     private char generateRandomLetter() {
         int rnd = generateRandomInt(0, 52);
         char base = (rnd < 26) ? 'A' : 'a';
