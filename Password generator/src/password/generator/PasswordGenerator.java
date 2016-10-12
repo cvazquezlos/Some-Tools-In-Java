@@ -36,12 +36,16 @@ public class PasswordGenerator {
         switch (secLevel){
             case "Low":
                 gradeLevel = 1;
+                break;
             case "Medium":
                 gradeLevel = 2;
+                break;
             case "Advanced":
                 gradeLevel = 3;
+                break;
             case "Super":
                 gradeLevel = 4;
+                break;
         }
     }
 
@@ -61,12 +65,13 @@ public class PasswordGenerator {
             elements = new String[10];
             if (numbers && specialChar) {
                 setAllIndex(1);
+                System.out.println(this.gradeLevel);
                 for (int j = 0; j < elements.length; j++) {
-                    if (j >= 0 && j < ((int) (index1*elements.length))) {
+                    if (j >= 0 && j < ((int) (index1*elements.length))){
                         elements[j] = Integer.toString(generateRandomInt(0, 9));
-                    } else if (j >= ((int) (index1*elements.length)) && j < ((int) (index2*elements.length))) {
+                    } else if (j >= ((int) (index1*elements.length)) && j < (((int) (index1*elements.length))+((int) (index2*elements.length)))){
                         elements[j] = String.valueOf(generateRandomLetter());
-                    } else if (j >= ((int) (index2*elements.length))) {
+                    } else if (j >= (((int) (index1*elements.length))+((int) (index2*elements.length)))){
                         elements[j] = "" + generateRandomChar(valuesAvaible) + "";
                     }
                 }
@@ -74,18 +79,18 @@ public class PasswordGenerator {
                 if (numbers) {
                     setAllIndex(2);
                     for (int j = 0; j < elements.length; j++) {
-                        if (j >= 0 && j < 5) {
+                        if (j >= 0 && j < ((int) (index1*elements.length))) {
                             elements[j] = Integer.toString(generateRandomInt(0, 9));
-                        } else if (j >= 5) {
+                        } else if (j >= ((int) (index1*elements.length))) {
                             elements[j] = String.valueOf(generateRandomLetter());
                         }
                     }
                 } else if (specialChar) {
                     setAllIndex(3);
                     for (int j = 0; j < elements.length; j++) {
-                        if (j >= 0 && j < 4) {
+                        if (j >= 0 && j < ((int) (index2*elements.length))) {
                             elements[j] = "" + generateRandomChar(valuesAvaible) + "";
-                        } else if (j >= 4) {
+                        } else if (j >= ((int) (index2*elements.length))) {
                             elements[j] = String.valueOf(generateRandomLetter());
                         }
                     }
@@ -119,25 +124,52 @@ public class PasswordGenerator {
                     case 1:
                         index1 = 0.2;
                         index2 = 0.6;
-                        index3 = 0.2;
                         break;
                     case 2:
                         index1 = 0.3;
                         index2 = 0.4;
-                        index3 = 0.3;
                         break;
                     case 3:
                         index1 = 0.4;
                         index2 = 0.2;
-                        index3 = 0.4;
                         break;
                     case 4:
                         index1 = 0.45;
                         index2 = 0.10;
-                        index3 = 0.45;
                         break;
                 }
                 break;
+            case 2:
+                switch(gradeLevel){
+                    case 1:
+                        index1 = 0.4;
+                        break;
+                    case 2:
+                        index1 = 0.5;
+                        break;
+                    case 3:
+                        index1 = 0.6;
+                        break;
+                    case 4:
+                        index1 = 0.7;
+                        break;
+                }
+                break;
+            case 3:
+                switch(gradeLevel){
+                    case 1:
+                        index2 = 0.6;
+                        break;
+                    case 2:
+                        index2 = 0.5;
+                        break;
+                    case 3:
+                        index2 = 0.4;
+                        break;
+                    case 4:
+                        index2 = 0.3;
+                        break;
+                }
         }
     }
     
