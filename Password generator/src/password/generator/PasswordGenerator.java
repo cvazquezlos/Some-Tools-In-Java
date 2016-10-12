@@ -11,7 +11,7 @@ public class PasswordGenerator {
     String secLevel;
     boolean specialChar;
     boolean numbers;
-    boolean repeated;
+    boolean wantRepeated;
     String regionChar;
 
     public PasswordGenerator(Index index, String[] result) {
@@ -24,12 +24,12 @@ public class PasswordGenerator {
         secLevel = result[1];
         specialChar = uploadBooleanValue(result[2]);
         numbers = uploadBooleanValue(result[3]);
-        repeated = uploadBooleanValue(result[4]);
+        wantRepeated = uploadBooleanValue(result[4]);
         regionChar = result[5];
     }
 
     private Boolean uploadBooleanValue(String result) {
-        if (result == "true") {
+        if (result.equals("true")) {
             return true;
         } else {
             return false;
@@ -37,56 +37,77 @@ public class PasswordGenerator {
     }
 
     public String createPassword() {
-        String pass = "";
+        String password = "";
         String[] elements;
+        char[] valuesAvaible = {'!', '"', '#', '$', '%', '&', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', ']', '^', '{', '}', '~'};
         for (int i = 0; i < numChar; i++) {
             elements = new String[10];
             if (numbers && specialChar) {
                 for (int j = 0; j < elements.length; j++) {
                     if (j >= 0 && j < 4) {
-                        elements[j] = Integer.toString((int) (Math.random() * 9));
+                        elements[j] = Integer.toString(generateRandomInt(0, 9));
                     } else if (j >= 4 && j < 6) {
-                        char[] valuesAvaible = {'!', '"', '#', '$', '%', '&', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', ']', '^', '{', '}', '~'};
-                        elements[j] = "" + valuesAvaible[(int) (Math.random() * 27)] + "";
+                        elements[j] = "" + generateRandomChar(valuesAvaible) + "";
                     } else if (j >= 6) {
-                        int rnd = (int) (Math.random() * 52);
-                        char base = (rnd < 26) ? 'A' : 'a';
-                        elements[j] = String.valueOf((char) (base + rnd % 26));
+                        elements[j] = String.valueOf(generateRandomLetter());
                     }
                 }
             } else if (numbers || specialChar) {
                 if (numbers) {
                     for (int j = 0; j < elements.length; j++) {
                         if (j >= 0 && j < 5) {
-                            elements[j] = Integer.toString((int) (Math.random() * 9));
+                            elements[j] = Integer.toString(generateRandomInt(0, 9));
                         } else if (j >= 5) {
-                            int rnd = (int) (Math.random() * 52);
-                            char base = (rnd < 26) ? 'A' : 'a';
-                            elements[j] = String.valueOf((char) (base + rnd % 26));
+                            elements[j] = String.valueOf(generateRandomLetter());
                         }
                     }
                 } else if (specialChar) {
                     for (int j = 0; j < elements.length; j++) {
                         if (j >= 0 && j < 4) {
-                            char[] valuesAvaible = {'!', '"', '#', '$', '%', '&', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', ']', '^', '{', '}', '~'};
-                            elements[j] = "" + valuesAvaible[(int) (Math.random() * 27)] + "";
+                            elements[j] = "" + generateRandomChar(valuesAvaible) + "";
                         } else if (j >= 4) {
-                            int rnd = (int) (Math.random() * 52);
-                            char base = (rnd < 26) ? 'A' : 'a';
-                            elements[j] = String.valueOf((char) (base + rnd % 26));
+                            elements[j] = String.valueOf(generateRandomLetter());
                         }
                     }
                 }
             } else {
                 for (int j = 0; j < elements.length; j++) {
-                    int rnd = (int) (Math.random() * 52);
-                    char base = (rnd < 26) ? 'A' : 'a';
-                    elements[j] = String.valueOf((char) (base + rnd % 26));
+                    elements[j] = String.valueOf(generateRandomLetter());
                 }
             }
-            pass += elements[(int) (Math.random() * 9)];
+            String elementChosen = elements[generateRandomInt(0, 9)];
+            if (isRepeated(password, elementChosen)) {
+                if (wantRepeated) {
+                    password += elementChosen;
+                } else {
+                    while (isRepeated(password, elementChosen)) {
+                        elementChosen = elements[generateRandomInt(0, 9)];
+                    }
+                    password += elementChosen;
+                }
+            } else {
+                password += elementChosen;
+            }
         }
-        return pass;
+        return password;
+    }
+
+    private char generateRandomLetter() {
+        int rnd = generateRandomInt(0, 52);
+        char base = (rnd < 26) ? 'A' : 'a';
+        return (char) (base + rnd % 26);
+    }
+
+    private char generateRandomChar(char[] valuesAvaible) {
+        return valuesAvaible[generateRandomInt(0, 26)];
+    }
+
+    private int generateRandomInt(int min, int max) {
+        return (int) (Math.random() * (max - min + 1 + min));
+    }
+
+    private boolean isRepeated(String password, String element) {
+        return password.contains(element);
     }
 
 }
